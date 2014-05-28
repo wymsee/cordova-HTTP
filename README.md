@@ -73,7 +73,7 @@ Accept all SSL certificates.  Or disable accepting all certificates.
     });
     
 ### post<a name="post"></a>
-Execute a POST request.  Takes a URL, parameters, and headers.
+Execute a POST request.  Takes a URL, parameters, headers, and optional timeoutInterval (default is 60 sec).
 
 #### success
 The success function receives a response object with 2 properties: status and data.  Status is the HTTP response code and data is the response from the server as a string. Here's a quick example:

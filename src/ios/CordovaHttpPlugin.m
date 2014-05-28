@@ -76,10 +76,17 @@
    NSString *url = [command.arguments objectAtIndex:0];
    NSDictionary *parameters = [command.arguments objectAtIndex:1];
    NSDictionary *headers = [command.arguments objectAtIndex:2];
+   NSString *timeoutIntervalString = [command.arguments objectAtIndex:3];
    [self setRequestHeaders: headers];
    
    CordovaHttpPlugin* __weak weakSelf = self;
    manager.responseSerializer = [TextResponseSerializer serializer];
+   if (timeoutIntervalString != (id)[NSNull null]) {
+      float timeoutInterval = [timeoutIntervalString floatValue];
+      if (timeoutInterval > 0) {
+        manager.requestSerializer.timeoutInterval = timeoutInterval;
+      }
+   }
    [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
       NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
       [dictionary setObject:[NSNumber numberWithInt:operation.response.statusCode] forKey:@"status"];
